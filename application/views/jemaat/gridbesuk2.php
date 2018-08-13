@@ -1,7 +1,7 @@
 <script type="text/javascript">
 	 var acl = "<?php echo $acl; ?>";
      $(function(){
-        var dg = $("#dgBesuk").datagrid(
+        var dgBesuk = $("#dgBesuk").datagrid(
             {
                 remoteFilter:true,
                 pagination:true,
@@ -14,8 +14,20 @@
                 method:'get',
                 onClickRow:function(index,row){
 
+                 },onLoadSuccess:function(){
+                    var pagerBesuk = $("#dgBesuk").datagrid('getPager');
+                    pagerBesuk.pagination({
+                        buttons:[{
+                            iconCls:'icon-add',
+                            handler:function(){
+                             var key = "<?php echo $member_key; ?>";
+                                saveBesuk("add",null,key);
+                            }
+                        }]
+                    });
                  }
             });
+
     });
     function viewBesuk(form,besukid,member_key){
         page="<?php echo base_url(); ?>besuk/form/"+form+"/"+besukid+"/"+member_key;
@@ -37,7 +49,7 @@
         else{
             var oprtr = "<img class='icon' src='<?php echo base_url(); ?>libraries/icon/24x24/edit.png'><ul class='title'>Edit Data</ul>";
         }
-         $("#dlgSave").dialog({
+         $("#dlgSaveBesuk").dialog({
             closed:false,
             title:oprtr,
             href:page,
@@ -47,27 +59,54 @@
         });
     }
     function saveProsesBesuk(){
-        var pembesuk = $("#formdatabesuk"+member_key+" input[name=pembesuk]").val();
-                if(pembesuk==""){
-                    $("#formdatabesuk"+recno+" input[name=pembesuk]").css("background-color","rgb(255,128,192)");
-                    $("#formdatabesuk"+recno+" span[id=tip]").html("<img class='icon' src='<?php echo base_url(); ?>libraries/icon/16x16/warning.png'>");
-                    $("#formdatabesuk"+recno+" input[name=pembesuk]").focus();
-                    return false;
+            var pembesuk = $("#formdatabesuk input[name=pembesuk]").val();
+            if(pembesuk==""){
+                $("#formdatabesuk input[name=pembesuk]").css("background-color","rgb(255,128,192)");
+                $("#formdatabesuk span[id=tip]").html("<img class='icon' src='<?php echo base_url(); ?>libraries/icon/16x16/warning.png'>");
+                $("#formdatabesuk input[name=pembesuk]").focus();
+                return false;
+            }
+            return $.ajax({
+                type: $("#formdatabesuk").attr("method"),
+                url: $("#formdatabesuk").attr("action"),
+                enctype: 'multipart/form-data',
+                data : $("#formdatabesuk").serialize(),
+                dataType: "json",
+                async: true,
+                success: function(data) {
+                    $("#dlgSaveBesuk").dialog('close');
+                    $("#dgBesuk").datagrid('reload');
                 }
-                return $.ajax({
-                    type: $("#formdatabesuk"+recno).attr("method"),
-                    url: $("#formdatabesuk"+recno).attr("action"),
-                    enctype: 'multipart/form-data',
-                    data : $("#formdatabesuk"+recno).serialize(),
-                    dataType: "json",
-                    async: true,
-                    success: function(data) {
-                        $("#formbesuk"+recno).dialog('close');
-                        $('#gridbesuk').trigger('reloadGrid');
-                        $('#gridjemaat').trigger('reloadGrid');
-                        $('#gridrelasi').trigger('reloadGrid');
-                    }
+            }).responseText
+    }
+    function delBesuk(form,besukid,member_key){
+        page="<?php echo base_url(); ?>besuk/form/"+form+"/"+besukid+"/"+member_key;
+        $("#dlgDeleteBesuk").dialog({
+            closed:false,
+            title:"Delete Data",
+            href:page,
+            height:350,
+            resizable:true,
+            autoResize:true
+        });
+    }
+    function deleteProsesBesuk(){
+        $.messager.confirm('Confirm','Yakin ingin menghapus data?',function(r){
+        if (r){
+               return $.ajax({
+                type: $("#formdatabesuk").attr("method"),
+                url: $("#formdatabesuk").attr("action"),
+                enctype: 'multipart/form-data',
+                data : $("#formdatabesuk").serialize(),
+                dataType: "json",
+                async: true,
+                success: function(data) {
+                    $("#dlgDeleteBesuk").dialog('close');
+                    $("#dgBesuk").datagrid('reload');
+                }
                 }).responseText
+            }
+        });
     }
 </script>
 <table id="dgBesuk" title="Besuk" class="easyui-datagrid" style="width:100%;height:250px"
@@ -90,5 +129,11 @@
 </div>
 <div class="dlg-buttons-besuk">
     <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveProsesBesuk()" style="width:90px">Proses</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('.easyui-dialog').dialog('close')" style="width:90px">Cancel</a>
+</div>
+<div id="dlgDeleteBesuk" class="easyui-dialog" style="width:400px" data-options="closed:true,modal:true,border:'thin',buttons:'.dlg-buttons-besuk1'">
+</div>
+<div class="dlg-buttons-besuk1">
+    <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="deleteProsesBesuk()" style="width:90px">Proses</a>
     <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('.easyui-dialog').dialog('close')" style="width:90px">Cancel</a>
 </div>

@@ -5,13 +5,6 @@
 			$(this).val($(this).val().toUpperCase());
 		});
 
-	/*
-		$('input').focusout(function() {
-			// Uppercase-ize contents
-			this.value = this.value.toLocaleUpperCase();
-		});
-	*/
-
 	    $('input[type=email]').keyup(function() {
 	        $(this).val($(this).val().toLowerCase());
 	    });
@@ -33,7 +26,7 @@
 ?>
 <input type="hidden" name="besukid" value="<?php echo @$row->besukid ?>">
 	<div style="margin-bottom:10px">
-        <input name="member_key" labelPosition="top" class="easyui-textbox"  value="<?= @$row->member_key ?>" readonly="" label="member_key:" style="width:100%">
+        <input name="member_key" labelPosition="top" class="easyui-textbox"  value="<?= @$member_key ?>" readonly="" label="member_key:" style="width:100%">
     </div>
     <div style="margin-bottom:10px">
 	        <input name="besukdate" labelPosition="top" class="easyui-datebox"  value="<?= @$row->besukdate ?>" label="besukdate:" style="width:100%">

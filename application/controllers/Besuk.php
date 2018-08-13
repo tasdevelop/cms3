@@ -137,7 +137,7 @@ class Besuk extends CI_Controller {
 				$edit = '<button id='.$row->member_key.' class="icon-edit" onclick="saveBesuk(\'edit\',\''.$row->besukid.'\',\''.$row->member_key.'\');" style="width:16px;height:16px;border:0"></button> ';
 			}
 			if(substr($acl,3,1)==1){
-				$del = '<button id='.$row->member_key.' class="icon-remove" onclick="delBesuk(\'del\','.$row->member_key.',\'formjemaat\');" style="width:16px;height:16px;border:0"></button>';
+				$del = '<button id='.$row->member_key.' class="icon-remove" onclick="delBesuk(\'del\','.$row->besukid.',\''.$row->member_key.'\');" style="width:16px;height:16px;border:0"></button>';
 			}
 			$row->aksi =$view.$edit.$del;
 		}
@@ -231,11 +231,9 @@ class Besuk extends CI_Controller {
 	function crud(){
 		@$oper=@$_POST['oper'];
 	    @$besukid=@$_POST['besukid'];
-
 	    @$besukdate = $_POST['besukdate'];
-	    @$exp1 = explode('-',$besukdate);
+	    @$exp1 = explode('/',$besukdate);
 		@$besukdate = $exp1[2]."-".$exp1[1]."-".$exp1[0]." ".date("H:i:s");
-
 		@$data = array(
 			'member_key' => @$_POST['member_key'],
 			'besukdate' => @$besukdate,

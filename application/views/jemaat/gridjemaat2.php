@@ -20,6 +20,7 @@
                     besuk(member_key);
                  }
             });
+
          dg.datagrid('getPanel').panel('panel').attr('tabindex',1).bind('keydown',function(e){
             switch(e.keyCode){
                 case 38:
@@ -408,7 +409,6 @@
     function hpexcel(){
         window.open("<?php echo base_url(); ?>jemaat/export/hpexcel");
     }
-
     function hptext(){
         window.open("<?php echo base_url(); ?>jemaat/export/hptext");
     }
