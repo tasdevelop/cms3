@@ -152,11 +152,11 @@
                 >
             <thead>
                 <tr>
-                    <th field="aksi" width="30">Aksi</th>
-                    <th field="parameter_key" width="30" sortable="true" hidden="true"></th>
-                    <th field="parametertext" width="30" sortable="true">bloodname</th>
-                    <th field="modifiedby" width="30" sortable="true">modifiedby</th>
-                    <th field="modifiedon" width="30" sortable="true">modifiedon</th>
+                    <th field="aksi" width="5">Aksi</th>
+                    <th field="parameter_key" width="10" sortable="true" hidden="true"></th>
+                    <th field="parametertext" width="5" sortable="true">bloodname</th>
+                    <th field="modifiedby" width="5" sortable="true">modifiedby</th>
+                    <th field="modifiedon" width="60" sortable="true">modifiedon</th>
                 </tr>
             </thead>
         </table>

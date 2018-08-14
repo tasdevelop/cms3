@@ -53,7 +53,7 @@ $(document).ready(function(){
 ?>
   <h3 class="noMargin">Jemaat Informasi</h3>
     <div class="row">
-        <div class="col-md-9 borderForm">
+        <div class="col-md-7 borderForm">
             <input type="hidden" name="member_key" value="<?= @$datarow->member_key  ?>">
             <div style="margin-bottom:10px">
                 <label>GRP PI : </label>
@@ -284,7 +284,7 @@ $(document).ready(function(){
 
 
         </div>
-        <div class="col-md-3">
+        <div class="col-md-5">
             <?php
                 $url = @$datarow->photofile!=""?"medium_".@$datarow->photofile:"medium_nofoto.jpg";
             ?>

@@ -1,7 +1,7 @@
 <script type="text/javascript">
-	 var acl = "<?php echo $acl; ?>";
-     $(function(){
-        var dgBesuk = $("#dgBesuk").datagrid(
+	var acl = "<?php echo $acl; ?>";
+    $(document).ready(function(){
+        $("#dgBesuk").datagrid(
             {
                 remoteFilter:true,
                 pagination:true,
@@ -13,22 +13,30 @@
                 url:"<?php echo base_url()?>besuk/grid2/<?php echo $member_key; ?>",
                 method:'get',
                 onClickRow:function(index,row){
-
-                 },onLoadSuccess:function(){
-                    var pagerBesuk = $("#dgBesuk").datagrid('getPager');
-                    pagerBesuk.pagination({
-                        buttons:[{
-                            iconCls:'icon-add',
-                            handler:function(){
-                             var key = "<?php echo $member_key; ?>";
-                                saveBesuk("add",null,key);
-                            }
-                        }]
-                    });
-                 }
+                },onBeforeLoad:function(){
+                    
+                    
+                    
+                }
             });
-
+        
+            var pagerBesuk = $("#dgBesuk").datagrid('getPager');
+            pagerBesuk.pagination({
+                buttons:[{
+                    iconCls:'icon-add',
+                    handler:function(){
+                        var key = "<?php echo $member_key; ?>";
+                        saveBesuk("add",null,key);
+                    }
+                }]
+            });
+            $("#dgBesuk").datagrid('enableFilter', [{
+                field:'aksi',
+                type:'label',
+                hidden:true
+            }]); 
     });
+    
     function viewBesuk(form,besukid,member_key){
         page="<?php echo base_url(); ?>besuk/form/"+form+"/"+besukid+"/"+member_key;
          $("#dlgView").dialog({
@@ -87,7 +95,7 @@
             href:page,
             height:350,
             resizable:true,
-            autoResize:true
+            autoResize:true 
         });
     }
     function deleteProsesBesuk(){
@@ -109,31 +117,31 @@
         });
     }
 </script>
-<table id="dgBesuk" title="Besuk" class="easyui-datagrid" style="width:100%;height:250px"
+<table id="dgBesuk" title="Besuk"  style="width:100%;height:250px"
                >
     <thead>
         <tr>
-            <th field="aksi" width="10%">Aksi</th>
-            <th  field="member_key" width="10%">Member Key</th>
+            <th field="aksi" width="6%">Aksi</th>
+            <th  field="member_key" width="8%">Member Key</th>
             <th sortable="true" field="besukdate" width="10%">besukdate</th>
-            <th sortable="true" field="pembesuk" width="10%">pembesuk</th>
-            <th sortable="true" field="pembesukdari" width="10%">pembesukdari</th>
+            <th sortable="true" field="pembesuk" width="5%">pembesuk</th>
+            <th sortable="true" field="pembesukdari" width="5%">pembesukdari</th>
             <th sortable="true" field="remark" width="10%">remark</th>
-            <th sortable="true" field="besuklanjutan" width="10%">besuklanjutan</th>
-            <th sortable="true" field="modifiedby" width="10%">modifiedby</th>
+            <th sortable="true" field="besuklanjutan" width="8%">besuklanjutan</th>
+            <th sortable="true" field="modifiedby" width="6%">modifiedby</th>
             <th sortable="true" field="modifiedon" width="10%">modifiedon</th>
         </tr>
     </thead>
 </table>
-<div id="dlgSaveBesuk" class="easyui-dialog" style="width:400px" data-options="closed:true,modal:true,border:'thin',buttons:'.dlg-buttons-besuk'">
+<div id="dlgSaveBesuk" class="easyui-dialog" style="width:400px" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons-besuk'">
 </div>
-<div class="dlg-buttons-besuk">
+<div id="dlg-buttons-besuk">
     <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveProsesBesuk()" style="width:90px">Proses</a>
     <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('.easyui-dialog').dialog('close')" style="width:90px">Cancel</a>
 </div>
-<div id="dlgDeleteBesuk" class="easyui-dialog" style="width:400px" data-options="closed:true,modal:true,border:'thin',buttons:'.dlg-buttons-besuk1'">
+<div id="dlgDeleteBesuk" class="easyui-dialog" style="width:400px" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons-besuk1'">
 </div>
-<div class="dlg-buttons-besuk1">
+<div id="dlg-buttons-besuk1">
     <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="deleteProsesBesuk()" style="width:90px">Proses</a>
     <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('.easyui-dialog').dialog('close')" style="width:90px">Cancel</a>
 </div>

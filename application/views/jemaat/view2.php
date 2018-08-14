@@ -9,7 +9,7 @@
     <input type="hidden" name="member_key" value="<?php echo @$member_key ?>">
     <h3 class="noMargin">Jemaat Informasi</h3>
     <div class="row">
-        <div class="col-md-9 borderForm">
+        <div class="col-md-7 borderForm">
             <div style="margin-bottom:10px">
                 <input name="grp_pi" labelPosition="top" class="easyui-textbox"  value="<?= @$row->grp_pi ?>" readonly="" label="grp_pi:" style="width:100%">
             </div>
@@ -126,7 +126,7 @@
             </div>
 
         </div>
-        <div class="col-md-3">
+        <div class="col-md-5">
             <?php
                 if($row->photofile!=""){
                     $url = "medium_".$row->photofile;

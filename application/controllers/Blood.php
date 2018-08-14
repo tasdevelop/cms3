@@ -200,8 +200,6 @@ class blood extends CI_Controller {
 				);
 			$i++;
 		}
-
-		// setcookie('pesan_transfer',json_encode($data->result()),time()+60,'/');
 		echo json_encode($responce);
 	}
 
@@ -219,8 +217,8 @@ class blood extends CI_Controller {
 		@$oper= @$_REQUEST['oper'];
 		@$data = array(
 			'parametergrpid' =>'BLOOD',
-			'parametertext' => '',
-			'parametertext' => @$paramtext,
+			'parameterid' =>  strtoupper(@$paramtext),
+			'parametertext' => strtoupper(@$paramtext),
 			'modifiedby' => $_SESSION['username'],
 			'modifiedon' => date("Y-m-d H:i:s")
 		);

@@ -184,12 +184,17 @@ class Jemaat extends CI_Controller {
 			$row->gender_key = $row->gender_key==''?'-':getParameterKey($row->gender_key)->parametertext;
 			$row->status_key = $row->status_key==''?'-':getParameterKey($row->status_key)->parametertext;
 			$row->kebaktian_key = $row->kebaktian_key==''?'-':getParameterKey($row->kebaktian_key)->parametertext;
-			$row->persekutuan_key  = $row->persekutuan_key==''?'-':getParameterKey($row->persekutuan_key)->parametertext;
+			$row->persekutuan_key  = $row->persekutuan_key=='' || $row->persekutuan_key=="-"?'-':getParameterKey($row->persekutuan_key)->parametertext;
 			$row->rayon_key = $row->rayon_key==''?'-':getParameterKey($row->rayon_key)->parametertext;
 			$row->pstatus_key =  $row->pstatus_key==''?'-':getParameterKey($row->pstatus_key)->parametertext;
 			$jlhbesuk = $this->mjemaat->jlhbesuk($row->member_key);
 			$tglbesukterakhir = $this->mjemaat->tglbesukterakhir($row->member_key);
-			$select="<spans style='float:left;margin-top:3px;margin-left:4px;'><input style='width:11px' $rel type='checkbox' name='selectboxid[]' id='selectboxid' value='".$row->member_key."'></span>";
+			$row->dob=$row->dob!="00-00-0000"?$row->dob:'-';
+			$row->baptismdate=$row->baptismdate!="00-00-0000"?$row->baptismdate:'-';
+			$row->umur = $row->umur==Date("Y")?'-':$row->umur;
+			$select="<spans style='float:left;margin-top:3px;margin-left:4px;'>
+			<input style='width:11px' $rel type='checkbox' name='selectboxid[]' id='selectboxid' value='".$row->member_key."'>
+			</span>";
 			$row->jlhbesuk = $jlhbesuk;
 			$row->tglbesukterakhir = $besukdate;
 			$row->pembesukdari = $pembesukdari;
